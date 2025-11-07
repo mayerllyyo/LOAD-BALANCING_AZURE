@@ -1,149 +1,188 @@
-### Escuela Colombiana de Ingeniería
-### Arquitecturas de Software - ARSW
+## Escuela Colombiana de Ingeniería
 
-## Escalamiento en Azure con Maquinas Virtuales, Sacale Sets y Service Plans
+### Software Architectures - ARSW
 
-### Dependencias
-* Cree una cuenta gratuita dentro de Azure. Para hacerlo puede guiarse de esta [documentación](https://azure.microsoft.com/es-es/free/students/). Al hacerlo usted contará con $100 USD para gastar durante 12 meses.
+## Scaling in Azure with Virtual Machines, Scale Sets, and Service Plans
 
-### Parte 0 - Entendiendo el escenario de calidad
+## **Authors**
 
-Adjunto a este laboratorio usted podrá encontrar una aplicación totalmente desarrollada que tiene como objetivo calcular el enésimo valor de la secuencia de Fibonnaci.
+- **Santiago Hurtado Martínez** [SantiagoHM20](https://github.com/SantiagoHM20)
 
-**Escalabilidad**
-Cuando un conjunto de usuarios consulta un enésimo número (superior a 1000000) de la secuencia de Fibonacci de forma concurrente y el sistema se encuentra bajo condiciones normales de operación, todas las peticiones deben ser respondidas y el consumo de CPU del sistema no puede superar el 70%.
+- **Mayerlly Suárez Correa** [mayerllyyo](https://github.com/mayerllyyo)
 
-### Parte 1 - Escalabilidad vertical
+### Dependencies
 
-1. Diríjase a el [Portal de Azure](https://portal.azure.com/) y a continuación cree una maquina virtual con las características básicas descritas en la imágen 1 y que corresponden a las siguientes:
-    * Resource Group = SCALABILITY_LAB
-    * Virtual machine name = VERTICAL-SCALABILITY
-    * Image = Ubuntu Server 
-    * Size = Standard B1ls
-    * Username = scalability_lab
-    * SSH publi key = Su llave ssh publica
+* Create a free account in Azure. You can follow this [documentation](https://azure.microsoft.com/es-es/free/students/). Doing so will give you **$100 USD in credits for 12 months**.
 
-![Imágen 1](images/part1/part1-vm-basic-config.png)
+### Part 0 - Understanding the Quality Scenario
 
-2. Para conectarse a la VM use el siguiente comando, donde las `x` las debe remplazar por la IP de su propia VM (Revise la sección "Connect" de la virtual machine creada para tener una guía más detallada).
+Attached to this lab, you will find a fully developed application whose goal is to calculate the n-th value of the Fibonacci sequence.
 
-    `ssh scalability_lab@xxx.xxx.xxx.xxx`
+**Scalability**
+When a group of users concurrently requests an n-th Fibonacci number (greater than 1,000,000) under normal operating conditions, **all requests must be answered**, and the system’s **CPU usage must not exceed 70%**.
 
-3. Instale node, para ello siga la sección *Installing Node.js and npm using NVM* que encontrará en este [enlace](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/).
-4. Para instalar la aplicación adjunta al Laboratorio, suba la carpeta `FibonacciApp` a un repositorio al cual tenga acceso y ejecute estos comandos dentro de la VM:
+---
 
-    `git clone <your_repo>`
+### Part 1 - Vertical Scalability
 
-    `cd <your_repo>/FibonacciApp`
+1. Go to the [Azure Portal](https://portal.azure.com/) and create a **Virtual Machine** with the basic characteristics shown in *Image 1*, corresponding to the following:
 
-    `npm install`
+   * Resource Group = `SCALABILITY_LAB`
+   * Virtual machine name = `VERTICAL-SCALABILITY`
+   * Image = Ubuntu Server
+   * Size = Standard B1ls
+   * Username = `scalability_lab`
+   * SSH public key = your public SSH key
 
-5. Para ejecutar la aplicación puede usar el comando `npm FibinacciApp.js`, sin embargo una vez pierda la conexión ssh la aplicación dejará de funcionar. Para evitar ese compartamiento usaremos *forever*. Ejecute los siguientes comando dentro de la VM.
+![Image 1](images/part1/part1-vm-basic-config.png)
 
-    ` node FibonacciApp.js`
+2. To connect to the VM, use the following command, replacing the `x` values with your VM’s IP address (check the *Connect* section of your created VM for more details):
 
-6. Antes de verificar si el endpoint funciona, en Azure vaya a la sección de *Networking* y cree una *Inbound port rule* tal como se muestra en la imágen. Para verificar que la aplicación funciona, use un browser y user el endpoint `http://xxx.xxx.xxx.xxx:3000/fibonacci/6`. La respuesta debe ser `The answer is 8`.
+   ```
+   ssh scalability_lab@xxx.xxx.xxx.xxx
+   ```
+
+3. Install Node.js. Follow the section *Installing Node.js and npm using NVM* found in this [link](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/).
+
+4. To install the lab’s attached application, upload the `FibonacciApp` folder to a repository you can access and execute these commands inside the VM:
+
+   ```
+   git clone <your_repo>
+   cd <your_repo>/FibonacciApp
+   npm install
+   ```
+
+5. To run the app, you can use `node FibonacciApp.js`, but once you close the SSH connection, the app will stop running. To avoid that behavior, we’ll use **forever**. Run the following commands in the VM:
+
+   ```
+   node FibonacciApp.js
+   ```
+
+6. Before testing the endpoint, go to the *Networking* section in Azure and create an **Inbound port rule** as shown below.
+   To verify that the app works, open a browser and access:
+   `http://xxx.xxx.xxx.xxx:3000/fibonacci/6`
+   The response should be:
+   `The answer is 8`
 
 ![](images/part1/part1-vm-3000InboudRule.png)
 
-7. La función que calcula en enésimo número de la secuencia de Fibonacci está muy mal construido y consume bastante CPU para obtener la respuesta. Usando la consola del Browser documente los tiempos de respuesta para dicho endpoint usando los siguintes valores:
-    * 1000000
-    * 1010000
-    * 1020000
-    * 1030000
-    * 1040000
-    * 1050000
-    * 1060000
-    * 1070000
-    * 1080000
-    * 1090000    
+7. The function that calculates the n-th Fibonacci number is inefficient and consumes a lot of CPU. Using the browser console, record the response times for these values:
 
-8. Dírijase ahora a Azure y verifique el consumo de CPU para la VM. (Los resultados pueden tardar 5 minutos en aparecer).
+   * 1000000
+   * 1010000
+   * 1020000
+   * 1030000
+   * 1040000
+   * 1050000
+   * 1060000
+   * 1070000
+   * 1080000
+   * 1090000
 
-![Imágen 2](images/part1/part1-vm-cpu.png)
+8. Go to Azure and check the **CPU usage** for the VM. (The results may take 5 minutes to appear.)
 
-9. Ahora usaremos Postman para simular una carga concurrente a nuestro sistema. Siga estos pasos.
-    * Instale newman con el comando `npm install newman -g`. Para conocer más de Newman consulte el siguiente [enlace](https://learning.getpostman.com/docs/postman/collection-runs/command-line-integration-with-newman/).
-    * Diríjase hasta la ruta `FibonacciApp/postman` en una maquina diferente a la VM.
-    * Para el archivo `[ARSW_LOAD-BALANCING_AZURE].postman_environment.json` cambie el valor del parámetro `VM1` para que coincida con la IP de su VM.
-    * Ejecute el siguiente comando.
+![Image 2](images/part1/part1-vm-cpu.png)
 
-    ```
-    newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
-    newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
-    ```
+9. Now, we’ll use **Postman** to simulate concurrent load on the system. Follow these steps:
 
-10. La cantidad de CPU consumida es bastante grande y un conjunto considerable de peticiones concurrentes pueden hacer fallar nuestro servicio. Para solucionarlo usaremos una estrategia de Escalamiento Vertical. En Azure diríjase a la sección *size* y a continuación seleccione el tamaño `B2ms`.
+   * Install **newman** with `npm install newman -g`. For more info, see [this link](https://learning.getpostman.com/docs/postman/collection-runs/command-line-integration-with-newman/).
+   * Go to `FibonacciApp/postman` on a machine other than the VM.
+   * In the `[ARSW_LOAD-BALANCING_AZURE].postman_environment.json` file, change the value of `VM1` to your VM’s IP.
+   * Run the following commands:
 
-![Imágen 3](images/part1/part1-vm-resize.png)
+     ```
+     newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
+     newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
+     ```
 
-11. Una vez el cambio se vea reflejado, repita el paso 7, 8 y 9.
-12. Evalue el escenario de calidad asociado al requerimiento no funcional de escalabilidad y concluya si usando este modelo de escalabilidad logramos cumplirlo.
-13. Vuelva a dejar la VM en el tamaño inicial para evitar cobros adicionales.
+10. CPU usage will be very high, and a large number of concurrent requests may cause the service to fail.
+    To fix this, we’ll use **Vertical Scaling**.
+    In Azure, go to the *Size* section and select size `B2ms`.
 
-**Preguntas**
+![Image 3](images/part1/part1-vm-resize.png)
 
-1. ¿Cuántos y cuáles recursos crea Azure junto con la VM?
-2. ¿Brevemente describa para qué sirve cada recurso?
-3. ¿Al cerrar la conexión ssh con la VM, por qué se cae la aplicación que ejecutamos con el comando `npm FibonacciApp.js`? ¿Por qué debemos crear un *Inbound port rule* antes de acceder al servicio?
-4. Adjunte tabla de tiempos e interprete por qué la función tarda tando tiempo.
-5. Adjunte imágen del consumo de CPU de la VM e interprete por qué la función consume esa cantidad de CPU.
-6. Adjunte la imagen del resumen de la ejecución de Postman. Interprete:
-    * Tiempos de ejecución de cada petición.
-    * Si hubo fallos documentelos y explique.
-7. ¿Cuál es la diferencia entre los tamaños `B2ms` y `B1ls` (no solo busque especificaciones de infraestructura)?
-8. ¿Aumentar el tamaño de la VM es una buena solución en este escenario?, ¿Qué pasa con la FibonacciApp cuando cambiamos el tamaño de la VM?
-9. ¿Qué pasa con la infraestructura cuando cambia el tamaño de la VM? ¿Qué efectos negativos implica?
-10. ¿Hubo mejora en el consumo de CPU o en los tiempos de respuesta? Si/No ¿Por qué?
-11. Aumente la cantidad de ejecuciones paralelas del comando de postman a `4`. ¿El comportamiento del sistema es porcentualmente mejor?
+11. Once the change takes effect, repeat steps **7, 8, and 9**.
+12. Evaluate the quality scenario related to the non-functional scalability requirement and conclude whether this model of scalability meets it.
+13. Return the VM to its original size to avoid additional charges.
 
-### Parte 2 - Escalabilidad horizontal
+---
 
-#### Crear el Balanceador de Carga
+**Questions**
 
-Antes de continuar puede eliminar el grupo de recursos anterior para evitar gastos adicionales y realizar la actividad en un grupo de recursos totalmente limpio.
+1. How many and which resources does Azure create along with the VM?
+2. Briefly describe the purpose of each resource.
+3. When closing the SSH connection to the VM, why does the application stop running when we use `node FibonacciApp.js`? Why must we create an *Inbound port rule* before accessing the service?
+4. Attach a table with response times and explain why the function takes so long.
+5. Attach an image of CPU usage and explain why the function consumes that much CPU.
+6. Attach the Postman execution summary image and interpret:
 
-1. El Balanceador de Carga es un recurso fundamental para habilitar la escalabilidad horizontal de nuestro sistema, por eso en este paso cree un balanceador de carga dentro de Azure tal cual como se muestra en la imágen adjunta.
+   * Execution times for each request.
+   * Any failures—document and explain them.
+7. What’s the difference between sizes `B2ms` and `B1ls` (not just hardware specs)?
+8. Is increasing the VM size a good solution in this scenario? What happens to the FibonacciApp when changing the VM size?
+9. What happens to the infrastructure when the VM size changes? What negative effects does it have?
+10. Was there any improvement in CPU usage or response time? Why or why not?
+11. Increase the number of parallel Postman executions to `4`. Is the system’s performance proportionally better?
+
+---
+
+### Part 2 - Horizontal Scalability
+
+#### Creating the Load Balancer
+
+Before continuing, delete the previous resource group to avoid additional costs and start fresh.
+
+1. The Load Balancer is essential for enabling horizontal scalability. Create a Load Balancer in Azure as shown in the image:
 
 ![](images/part2/part2-lb-create.png)
 
-2. A continuación cree un *Backend Pool*, guiese con la siguiente imágen.
+2. Next, create a **Backend Pool**, following this example:
 
 ![](images/part2/part2-lb-bp-create.png)
 
-3. A continuación cree un *Health Probe*, guiese con la siguiente imágen.
+3. Then, create a **Health Probe**, following this image:
 
 ![](images/part2/part2-lb-hp-create.png)
 
-4. A continuación cree un *Load Balancing Rule*, guiese con la siguiente imágen.
+4. Next, create a **Load Balancing Rule**, as shown below:
 
 ![](images/part2/part2-lb-lbr-create.png)
 
-5. Cree una *Virtual Network* dentro del grupo de recursos, guiese con la siguiente imágen.
+5. Create a **Virtual Network** in the resource group, as shown:
 
 ![](images/part2/part2-vn-create.png)
 
-#### Crear las maquinas virtuales (Nodos)
+---
 
-Ahora vamos a crear 3 VMs (VM1, VM2 y VM3) con direcciones IP públicas standar en 3 diferentes zonas de disponibilidad. Después las agregaremos al balanceador de carga.
+#### Creating the Virtual Machines (Nodes)
 
-1. En la configuración básica de la VM guíese por la siguiente imágen. Es importante que se fije en la "Avaiability Zone", donde la VM1 será 1, la VM2 será 2 y la VM3 será 3.
+Now, we’ll create **3 VMs** (VM1, VM2, and VM3) with standard public IPs in **3 different Availability Zones**. Then, we’ll add them to the Load Balancer.
+
+1. In the basic configuration, follow the image below.
+   Note the *Availability Zone*:
+
+   * VM1 → Zone 1
+   * VM2 → Zone 2
+   * VM3 → Zone 3
 
 ![](images/part2/part2-vm-create1.png)
 
-2. En la configuración de networking, verifique que se ha seleccionado la *Virtual Network*  y la *Subnet* creadas anteriormente. Adicionalmente asigne una IP pública y no olvide habilitar la redundancia de zona.
+2. In the *Networking* configuration, make sure the previously created **Virtual Network** and **Subnet** are selected.
+   Assign a public IP and enable **zone redundancy**.
 
 ![](images/part2/part2-vm-create2.png)
 
-3. Para el Network Security Group seleccione "avanzado" y realice la siguiente configuración. No olvide crear un *Inbound Rule*, en el cual habilite el tráfico por el puerto 3000. Cuando cree la VM2 y la VM3, no necesita volver a crear el *Network Security Group*, sino que puede seleccionar el anteriormente creado.
+3. For the **Network Security Group**, select *Advanced* and configure it as shown.
+   Don’t forget to create an *Inbound Rule* for port **3000**.
+   When creating VM2 and VM3, you can reuse the existing Network Security Group.
 
 ![](images/part2/part2-vm-create3.png)
 
-4. Ahora asignaremos esta VM a nuestro balanceador de carga, para ello siga la configuración de la siguiente imágen.
+4. Assign this VM to the Load Balancer, as shown below:
 
 ![](images/part2/part2-vm-create4.png)
 
-5. Finalmente debemos instalar la aplicación de Fibonacci en la VM. para ello puede ejecutar el conjunto de los siguientes comandos, cambiando el nombre de la VM por el correcto
+5. Finally, install the Fibonacci application on each VM by running:
 
 ```
 git clone https://github.com/daprieto1/ARSW_LOAD-BALANCING_AZURE.git
@@ -159,20 +198,30 @@ npm install forever -g
 forever start FibonacciApp.js
 ```
 
-Realice este proceso para las 3 VMs, por ahora lo haremos a mano una por una, sin embargo es importante que usted sepa que existen herramientas para aumatizar este proceso, entre ellas encontramos Azure Resource Manager, OsDisk Images, Terraform con Vagrant y Paker, Puppet, Ansible entre otras.
+Repeat this process for all 3 VMs.
+For now, we’ll do it manually, but note that automation tools like **Azure Resource Manager**, **OSDisk Images**, **Terraform**, **Packer**, **Puppet**, or **Ansible** can automate this process.
 
-#### Probar el resultado final de nuestra infraestructura
+---
 
-1. Porsupuesto el endpoint de acceso a nuestro sistema será la IP pública del balanceador de carga, primero verifiquemos que los servicios básicos están funcionando, consuma los siguientes recursos:
+#### Testing the Final Infrastructure
 
-```
-http://52.155.223.248/
-http://52.155.223.248/fibonacci/1
-```
+1. The access endpoint for the system will be the **Load Balancer’s public IP**.
+   First, verify that basic services are working:
 
-2. Realice las pruebas de carga con `newman` que se realizaron en la parte 1 y haga un informe comparativo donde contraste: tiempos de respuesta, cantidad de peticiones respondidas con éxito, costos de las 2 infraestrucruras, es decir, la que desarrollamos con balanceo de carga horizontal y la que se hizo con una maquina virtual escalada.
+   ```
+   http://52.155.223.248/
+   http://52.155.223.248/fibonacci/1
+   ```
 
-3. Agregue una 4 maquina virtual y realice las pruebas de newman, pero esta vez no lance 2 peticiones en paralelo, sino que incrementelo a 4. Haga un informe donde presente el comportamiento de la CPU de las 4 VM y explique porque la tasa de éxito de las peticiones aumento con este estilo de escalabilidad.
+2. Perform the same **load tests using newman** as in Part 1.
+   Create a comparative report contrasting:
+
+   * Response times
+   * Successful requests
+   * Costs of both infrastructures (horizontal load balancing vs. vertically scaled VM)
+
+3. Add a **4th VM** and run the newman tests again, but this time with **4 parallel executions**.
+   Create a report showing CPU usage for all 4 VMs and explain why the success rate increased with this scalability model.
 
 ```
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10 &
@@ -181,18 +230,19 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
 
-**Preguntas**
+---
 
-* ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
-* ¿Cuál es el propósito del *Backend Pool*?
-* ¿Cuál es el propósito del *Health Probe*?
-* ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
-* ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
-* ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
-* ¿Cuál es el propósito del *Network Security Group*?
-* Informe de newman 1 (Punto 2)
-* Presente el Diagrama de Despliegue de la solución.
+**Questions**
 
-
-
-
+* What are the types of Load Balancers in Azure, and how do they differ?
+  What is an SKU, what types exist, and how do they differ?
+  Why does the Load Balancer need a public IP?
+* What is the purpose of the **Backend Pool**?
+* What is the purpose of the **Health Probe**?
+* What is the purpose of the **Load Balancing Rule**?
+  What types of session persistence exist, why is it important, and how can it affect system scalability?
+* What is a **Virtual Network**? What is a **Subnet**? What are *address space* and *address range* used for?
+* What are **Availability Zones**, and why did we choose three different ones? What does it mean for an IP to be *zone-redundant*?
+* What is the purpose of the **Network Security Group**?
+* Attach **Newman report 1 (from step 2)**.
+* Present the **Deployment Diagram** of the solution.
