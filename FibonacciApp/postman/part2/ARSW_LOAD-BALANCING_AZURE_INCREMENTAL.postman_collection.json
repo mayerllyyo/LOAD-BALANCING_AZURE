@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "529a103a-4b2a-6e74-9f38-583bb2e9f960",
+		"name": "ARSW_LOAD-BALANCING_AZURE_INCREMENTAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "fibonacci_1000000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-1",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1000000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1000000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1000000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1010000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-2",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1010000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1010000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1010000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1020000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-3",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1020000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1020000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1020000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1030000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-4",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1030000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1030000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1030000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1040000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-5",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1040000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1040000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1040000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1050000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-6",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1050000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1050000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1050000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1060000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-7",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1060000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1060000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1060000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1070000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-8",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1070000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1070000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1070000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1080000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-9",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1080000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1080000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1080000"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fibonacci_1090000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "test-10",
+						"exec": [
+							"pm.test(\"Response time is less than 30s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+							"});",
+							"console.log(\"Fibonacci 1090000: \" + pm.response.responseTime + \"ms\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{loadbalancer}}/fibonacci/1090000",
+					"protocol": "http",
+					"host": ["{{loadbalancer}}"],
+					"path": ["fibonacci", "1090000"]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
