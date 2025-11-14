@@ -628,7 +628,7 @@ See detailed test results in sections:
 
 **Present the Deployment Diagram of the solution**
 
-
+![image](images/part2/DiagramaDespliegue.png)
 ---
 
 ## Conclusion
