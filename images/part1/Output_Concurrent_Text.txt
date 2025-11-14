@@ -1,0 +1,86 @@
+PS F:\escritorio\LOAD-BALANCING_AZURE\FibonacciApp\postman\part1> newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
+newman
+
+ARSW_LOAD-BALANCING_AZURE
+
+Iteration 1/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 27.8s]
+
+Iteration 2/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 14.9s]
+
+Iteration 3/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 15.5s]
+
+Iteration 4/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [errored]
+     read ECONNRESET
+
+Iteration 5/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 15.8s]
+
+Iteration 6/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 15.6s]
+
+Iteration 7/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 8s]
+
+Iteration 8/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [errored]
+     read ECONNRESET
+
+Iteration 9/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 8s]
+
+Iteration 10/10
+
+→ fibonacci
+  GET http://20.63.75.10:3000/fibonacci/1000000 [200 OK, 209.24kB, 8s]
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │               10 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │               10 │               2 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │               10 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │                0 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │                0 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 2m 10s                                   │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 1.67MB (approx)                         │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 15s [min: 8s, max: 27.8s, s.d.: 6.3s] │
+└──────────────────────────────────────────────────────────────┘
+
+  #  failure            detail
+
+ 1.  Error              read ECONNRESET
+     iteration: 4       at request
+                        inside ""
+
+ 2.  Error              read ECONNRESET
+     iteration: 8       at request
+                        inside ""
