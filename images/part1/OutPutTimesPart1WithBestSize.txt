@@ -1,0 +1,88 @@
+→ fibonacci_1000000
+  GET http://4.239.145.136:3000/fibonacci/1000000 [200 OK, 209.24kB, 7.5s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1000000: 7595ms'
+  └
+
+→ fibonacci_1010000
+  GET http://4.239.145.136:3000/fibonacci/1010000 [200 OK, 211.33kB, 7.4s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1010000: 7487ms'
+  └
+
+→ fibonacci_1020000
+  GET http://4.239.145.136:3000/fibonacci/1020000 [200 OK, 213.42kB, 7.6s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1020000: 7607ms'
+  └
+
+→ fibonacci_1030000
+  GET http://4.239.145.136:3000/fibonacci/1030000 [200 OK, 215.51kB, 7.7s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1030000: 7762ms'
+  └
+
+→ fibonacci_1040000
+  GET http://4.239.145.136:3000/fibonacci/1040000 [200 OK, 217.6kB, 7.8s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1040000: 7898ms'
+  └
+
+→ fibonacci_1050000
+  GET http://4.239.145.136:3000/fibonacci/1050000 [200 OK, 219.69kB, 8s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1050000: 8017ms'
+  └
+
+→ fibonacci_1060000
+  GET http://4.239.145.136:3000/fibonacci/1060000 [200 OK, 221.78kB, 8.1s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1060000: 8195ms'
+  └
+
+→ fibonacci_1070000
+  GET http://4.239.145.136:3000/fibonacci/1070000 [200 OK, 223.87kB, 8.3s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1070000: 8311ms'
+  └
+
+→ fibonacci_1080000
+  GET http://4.239.145.136:3000/fibonacci/1080000 [200 OK, 225.96kB, 8.5s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1080000: 8503ms'
+  └
+
+→ fibonacci_1090000
+  GET http://4.239.145.136:3000/fibonacci/1090000 [200 OK, 228.05kB, 8.5s]
+  √  Response time is less than 30s
+  ┌
+  │ 'Fibonacci 1090000: 8581ms'
+  └
+
+┌─────────────────────────┬───────────────────┬───────────────────┐
+│                         │          executed │            failed │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│              iterations │                 1 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│                requests │                10 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│            test-scripts │                10 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│      prerequest-scripts │                 0 │                 0 │
+├─────────────────────────┼───────────────────┼───────────────────┤
+│              assertions │                10 │                 0 │
+├─────────────────────────┴───────────────────┴───────────────────┤
+│ total run duration: 1m 20.7s                                    │
+├─────────────────────────────────────────────────────────────────┤
+│ total data received: 2.18MB (approx)                            │
+├─────────────────────────────────────────────────────────────────┤
+│ average response time: 7.9s [min: 7.4s, max: 8.5s, s.d.: 370ms] │
